@@ -1,4 +1,4 @@
-package com.rightlydivide.backend;
+package com.aca.backend.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
