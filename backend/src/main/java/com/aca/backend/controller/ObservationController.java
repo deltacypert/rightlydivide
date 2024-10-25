@@ -19,7 +19,7 @@ public class ObservationController {
     private ObservationService service = new ObservationService();
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Observation> getObservation() {
+    public List<Observation> getObservations() {
         return service.getObervations();
     }
 

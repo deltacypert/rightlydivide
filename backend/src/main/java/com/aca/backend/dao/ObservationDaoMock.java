@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 // FIXME: testing purposes
-public class ObservationDaoMock implements ObservationDAO {
+public class ObservationDaoMock implements ObservationDao {
 
     private static List<Observation> observations = new ArrayList<>();
 
     static {
         Observation spiritual = new Observation();
         spiritual.setText("This is a spiritual obervation on Romans 1.");
-        spiritual.setType(ObservationType.Spiritual);
+        spiritual.setType(ObservationType.SPIRITUAL);
         spiritual.setDateCreated(LocalDate.now());
         spiritual.setId(1);
         Chapter spiritualChapter = new Chapter("Isaiah", 25);
@@ -25,7 +25,7 @@ public class ObservationDaoMock implements ObservationDAO {
 
         Observation moral = new Observation();
         moral.setText("This is a moral observation.");
-        moral.setType(ObservationType.Moral);
+        moral.setType(ObservationType.MORAL);
         moral.setDateCreated(LocalDate.now());
         moral.setId(2);
         Chapter moralChapter = new Chapter("Ephesians", 2);
@@ -33,7 +33,7 @@ public class ObservationDaoMock implements ObservationDAO {
 
         Observation literal = new Observation();
         literal.setText("This is a literal observation.");
-        literal.setType(ObservationType.Literal);
+        literal.setType(ObservationType.LITERAL);
         literal.setDateCreated(LocalDate.now());
         literal.setId(3);
         Chapter literalChapter = new Chapter("Romans", 1);
