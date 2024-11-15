@@ -2,14 +2,13 @@ package com.aca.backend.controller;
 
 import com.aca.backend.model.Chapter;
 import com.aca.backend.model.Observation;
+import com.aca.backend.model.ObservationException;
 import com.aca.backend.model.ObservationType;
 import com.aca.backend.service.ObservationService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -24,33 +23,48 @@ public class ObservationController {
     }
 
     @RequestMapping(
-            value = "/type/{observationType}",
+            value = "/type/{observationValue}",
             method = RequestMethod.GET)
-    public List<Observation> getObservationsByType(@PathVariable ObservationType observationType) {
-        return service.getObservationsByType(observationType);
+    public List<Observation> getObservationsByType(@PathVariable ObservationType observationValue) {
+        return service.getObservationsByType(observationValue);
     }
 
     @RequestMapping(
-            value = "/date/{dateCreated}",
+            value = "/id/{observationIdValue}",
             method = RequestMethod.GET)
-    public List<Observation> getObservationsByDate(@PathVariable String dateCreated) {
-        LocalDate date = LocalDate.parse(dateCreated);
-        return service.getObservationsByDate(date);
-    }
-
-
-    @RequestMapping(
-            value = "/chapter/{bookValue}",
-            method = RequestMethod.GET)
-    public List<Observation> getObservationsByBook(@PathVariable String bookValue) {
-        return service.getObservationsByBook(bookValue);
+    public List<Observation> getObservationsById(@PathVariable Integer observationIdValue) {
+        return service.getObservationsById(observationIdValue);
     }
 
     @RequestMapping(
-            value = "/chapter/{bookValue}/{chapterValue}",
+            value = "/day/{dateCreated}",
             method = RequestMethod.GET)
-    public List<Observation> getObservationsByChapter(@PathVariable String bookValue, @PathVariable Integer chapterValue) {
-        Chapter chapter = new Chapter(bookValue, chapterValue);
-        return service.getObservationsByChapter(chapter);
+    public List<Observation> getObservationsByDay(@PathVariable LocalDate dateCreated) {
+        return service.getObservationsByDay(dateCreated);
     }
+
+    @RequestMapping(
+            consumes = "application/json",
+            method = RequestMethod.POST)
+    public Observation createMovie(@RequestBody Observation newObservation) throws ObservationException {
+        return service.createObservation(newObservation);
+    }
+
+    @RequestMapping(
+            consumes = "application/json",
+            method = RequestMethod.PUT)
+    public Observation updateObservation(@RequestBody Observation updateObservation) {
+        return service.updateObservation(updateObservation);
+    }
+
+    @RequestMapping(
+            value = "/id/{observationIdValue}",
+            method = RequestMethod.DELETE)
+    public Observation deleteObservationById(@PathVariable Integer observationIdValue) {
+        System.out.println("observation: " + observationIdValue + " deleted.");
+        return service.deleteObservationById(observationIdValue);
+    }
+
+    //TODO: getObservationsByBook
+    //TODO: getObservationsByChapter
 }

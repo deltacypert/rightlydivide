@@ -1,17 +1,17 @@
 package com.aca.backend.service;
 
 import com.aca.backend.dao.ObservationDao;
-import com.aca.backend.dao.ObservationDaoMock;
-import com.aca.backend.model.Chapter;
+import com.aca.backend.dao.ObservationDaoImpl;
 import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationType;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ObservationService {
 
-    private ObservationDao observationDao = new ObservationDaoMock();
+    private ObservationDao observationDao = new ObservationDaoImpl();
 
     public List<Observation> getObervations() {
         return observationDao.getObservations();
@@ -21,15 +21,27 @@ public class ObservationService {
         return observationDao.getObservationsByType(observationType);
     }
 
-    public List<Observation> getObservationsByDate(LocalDate dateCreated) {
-        return observationDao.getObservationsByDate(dateCreated);
+    public List<Observation> getObservationsById(Integer observationIdValue) {
+        return observationDao.getObservationsById(observationIdValue);
     }
 
-    public List<Observation> getObservationsByBook(String book) {
-        return observationDao.getObservationsByBook(book);
+    public Observation createObservation(Observation newObservation) {
+        return observationDao.createObservation(newObservation);
     }
 
-    public List<Observation> getObservationsByChapter(Chapter chapter) {
-        return observationDao.getObservationsByChapter(chapter);
+    public Observation updateObservation(Observation updateObservation) {
+        return observationDao.updateObservation(updateObservation);
     }
+
+    public Observation deleteObservationById(Integer observationIdValue) {
+        return observationDao.deleteObservationById(observationIdValue);
+    }
+
+    public List<Observation> getObservationsByDay(LocalDate dateCreated) {
+        return observationDao.getObservationsByDay(dateCreated);
+    }
+
+
+    //TODO: getObservationsByBook
+    //TODO: getObservationsByChapter
 }

@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 public class Observation {
     private Integer id;
-    private String text;
+    private java.lang.String text;
     private ObservationType type;
-    private LocalDate dateCreated;
-    private Chapter chapter;
+    private LocalDate createDateTime;
+    private LocalDate updateDateTime;
+    // TODO: private Book book
+    // TODO: private Chapter chapter
 
     public Integer getId() {
         return id;
@@ -33,19 +35,16 @@ public class Observation {
         this.type = type;
     }
 
-    public LocalDate getDateCreated() {
-        return dateCreated;
+    public LocalDate getCreateDateTime() {
+        return createDateTime;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreateDateTime(LocalDate createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
-    public Chapter getChapter() {
-        return chapter;
-    }
+    public LocalDate getUpdateDateTime() { return updateDateTime; }
 
-    public void setChapter(Chapter chapter) {
-        this.chapter = chapter;
-    }
+    public void setUpdateDateTime(LocalDate updateDateTime) { this.updateDateTime = updateDateTime; }
+
 }
