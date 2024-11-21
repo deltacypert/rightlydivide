@@ -1,63 +1,70 @@
 package com.aca.backend.dao;
 
-import com.aca.backend.model.Chapter;
 import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationType;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObservationDaoImpl implements ObservationDao {
 
+    // CREATE
+    private static String insertObservation =
+            "INSERT INTO observations (TEXT, typeId, scriptureRef) " +
+                    "VALUES " +
+                    "(?, ?, ?)";
+    // READ
     private static String selectAllObservations =
-            "SELECT id, text, typeId, createDateTime, updateDateTime " +
-            "FROM observations";
+            "SELECT id, text, typeId, scriptureRef, createDateTime, updateDateTime " +
+            "FROM observations;";
     private static String selectObservationsByType =
-            "SELECT id, text, typeId, createDateTime, updateDateTime " +
+            "SELECT id, text, typeId, scriptureRef, createDateTime, updateDateTime " +
             "FROM observations " +
             "WHERE typeId = ? ";
     private static String selectObservationsById =
-            "SELECT id, text, typeId, createDateTime, updateDateTime " +
+            "SELECT id, text, typeId, scriptureRef, createDateTime, updateDateTime " +
             "FROM observations " +
             "WHERE id = ? ";
     private static String selectObservationsByDay =
-            "SELECT id, text, typeId, createDateTime, updateDateTime " +
+            "SELECT id, text, typeId, scriptureRef, createDateTime, updateDateTime " +
             "FROM observations " +
             "WHERE DATE(createDateTime) = ? ";
-    private static String insertObservation =
-            "INSERT INTO observations (text, typeId) " +
-            "VALUES " +
-            "('This is a new spiritual observation', 'Spiritual')" ;
+    private static String selectObservationsByScripture =
+            "SELECT * " +
+            "FROM observations " +
+            "WHERE scriptureRef = ? ";
+    private static String selectObsByTypeAndScrip =
+            "SELECT * " +
+            "FROM observations " +
+            "WHERE typeId = ? AND scriptureRef = ? ";
+    // UPDATE
     private static String updateObservationsById =
             "UPDATE observations " +
-            "SET text = 'This is now a moral observation', " +
-                "typeId = 'Moral' " +
-                "WHERE id = 3 ";
+            "SET text = ?, " +
+                "typeId = ? " +
+            "WHERE id = 2 ";
+    // DELETE
     private static String deleteObservationById =
             "DELETE FROM observations " +
             "WHERE id = ? ";
 
+    @Override
+    public Observation createObservation(Observation newObservation) {
+        PreparedStatement ps = null;
+        Connection conn = MariaDbUtil.getConnection();
 
-    private List<Observation> makeObservations(ResultSet result) throws SQLException {
-        List<Observation> observations = new ArrayList<>();
-        while(result.next()) {
-            Observation observation = new Observation();
-            observation.setId(result.getInt("id"));
-            observation.setText(result.getString("text"));
-
-            String typeString = result.getString("typeId");
-            observation.setType(ObservationType.convertStringToObType(typeString));
-
-            observation.setCreateDateTime(result.getObject("createDateTime", LocalDate.class));
-            observation.setUpdateDateTime(result.getObject("updateDateTime", LocalDate.class));
-
-            observations.add(observation);
+        try {
+            ps = conn.prepareStatement(insertObservation);
+            ps.setString(1, newObservation.getText());
+            ps.setString(2, newObservation.getType().toString());
+            int rowCount = ps.executeUpdate();
+            System.out.println("insert count: " + rowCount);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        return observations;
+        return newObservation;
     }
 
     @Override
@@ -80,24 +87,6 @@ public class ObservationDaoImpl implements ObservationDao {
     }
 
     @Override
-    public List<Observation> getObservationsByType(ObservationType observationType) {
-        List<Observation> myObservations = new ArrayList<>();
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-
-        Connection conn = MariaDbUtil.getConnection();
-        try {
-            ps = conn.prepareStatement(selectObservationsByType);
-            ps.setString(1, observationType.toString());
-            rs = ps.executeQuery();
-            myObservations = makeObservations(rs);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return myObservations;
-    }
-
-    @Override
     public List<Observation> getObservationsById(Integer observationId) {
         List<Observation> myObservations = new ArrayList<>();
         ResultSet rs = null;
@@ -107,6 +96,24 @@ public class ObservationDaoImpl implements ObservationDao {
         try {
             ps = conn.prepareStatement(selectObservationsById);
             ps.setInt(1,observationId);
+            rs = ps.executeQuery();
+            myObservations = makeObservations(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return myObservations;
+    }
+
+    @Override
+    public List<Observation> getObservationsByType(ObservationType typeValue) {
+        List<Observation> myObservations = new ArrayList<>();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        Connection conn = MariaDbUtil.getConnection();
+        try {
+            ps = conn.prepareStatement(selectObservationsByType);
+            ps.setString(1, typeValue.toString());
             rs = ps.executeQuery();
             myObservations = makeObservations(rs);
         } catch (SQLException e) {
@@ -135,22 +142,61 @@ public class ObservationDaoImpl implements ObservationDao {
     }
 
     @Override
-    public Observation createObservation(Observation newObservation) {
+    public List<Observation> getObservationsByScripture(String scriptureValue) {
+        List<Observation> myObservations = new ArrayList<>();
+        ResultSet rs = null;
         PreparedStatement ps = null;
-        Connection conn = MariaDbUtil.getConnection();
 
+        Connection conn = MariaDbUtil.getConnection();
         try {
-            ps = conn.prepareStatement(insertObservation);
-            ps.setString(1, newObservation.getText());
-            ps.setString(2, newObservation.getType().toString());
-            int rowCount = ps.executeUpdate();
-            System.out.println("inser count: " + rowCount);
+            ps = conn.prepareStatement(selectObservationsByScripture);
+            ps.setString(1, scriptureValue);
+            rs = ps.executeQuery();
+            myObservations = makeObservations(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return newObservation;
+        return myObservations;
     }
 
+    @Override
+    public List<Observation> getObsByTypeAndScrip(ObservationType typeValue, String scriptureValue) {
+        List<Observation> myObservations = new ArrayList<>();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        Connection conn = MariaDbUtil.getConnection();
+        try {
+            ps = conn.prepareStatement(selectObsByTypeAndScrip);
+            ps.setString(1, typeValue.toString());
+            ps.setString(2, scriptureValue);
+            rs = ps.executeQuery();
+            myObservations = makeObservations(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return myObservations;
+    }
+
+    private List<Observation> makeObservations(ResultSet result) throws SQLException {
+        List<Observation> observations = new ArrayList<>();
+        while(result.next()) {
+            Observation observation = new Observation();
+            observation.setId(result.getInt("id"));
+            observation.setText(result.getString("text"));
+            observation.setScriptureRef(result.getString("scriptureRef"));
+
+            String typeString = result.getString("typeId");
+            observation.setType(ObservationType.convertStringToObType(typeString));
+
+            observation.setCreateDateTime(result.getObject("createDateTime", LocalDate.class));
+            observation.setUpdateDateTime(result.getObject("updateDateTime", LocalDate.class));
+
+            observations.add(observation);
+        }
+
+        return observations;
+    }
 
     @Override
     public Observation updateObservation(Observation updateObservation) {
@@ -172,6 +218,8 @@ public class ObservationDaoImpl implements ObservationDao {
         }
         return updateObservation;
     }
+
+    // NOTE: DELETE
 
     @Override
     public Observation deleteObservationById(Integer observationIdValue) {
@@ -195,8 +243,4 @@ public class ObservationDaoImpl implements ObservationDao {
 
         return observationToDelete;
         }
-
-    }
-
-    // TODO: getObservationsByBook()
-    // TODO: getObservationsByChapter()
+}

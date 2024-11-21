@@ -6,10 +6,9 @@ public class Observation {
     private Integer id;
     private java.lang.String text;
     private ObservationType type;
+    private String scriptureRef;
     private LocalDate createDateTime;
     private LocalDate updateDateTime;
-    // TODO: private Book book
-    // TODO: private Chapter chapter
 
     public Integer getId() {
         return id;
@@ -34,6 +33,10 @@ public class Observation {
     public void setType(ObservationType type) {
         this.type = type;
     }
+
+    public String getScriptureRef() { return scriptureRef; }
+
+    public void setScriptureRef(String scriptureRef) { this.scriptureRef = scriptureRef; }
 
     public LocalDate getCreateDateTime() {
         return createDateTime;

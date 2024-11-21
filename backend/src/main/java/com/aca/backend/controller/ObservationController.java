@@ -1,6 +1,5 @@
 package com.aca.backend.controller;
 
-import com.aca.backend.model.Chapter;
 import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationException;
 import com.aca.backend.model.ObservationType;
@@ -8,7 +7,6 @@ import com.aca.backend.service.ObservationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -17,16 +15,25 @@ public class ObservationController {
 
     private ObservationService service = new ObservationService();
 
+    // CREATE
+    @RequestMapping(
+            consumes = "application/json",
+            method = RequestMethod.POST)
+    public Observation createObservation(@RequestBody Observation newObservation) throws ObservationException {
+        return service.createObservation(newObservation);
+    }
+
+    // READ
     @RequestMapping(method = RequestMethod.GET)
     public List<Observation> getObservations() {
-        return service.getObervations();
+        return service.getObservations();
     }
 
     @RequestMapping(
-            value = "/type/{observationValue}",
+            value = "/type/{typeValue}",
             method = RequestMethod.GET)
-    public List<Observation> getObservationsByType(@PathVariable ObservationType observationValue) {
-        return service.getObservationsByType(observationValue);
+    public List<Observation> getObservationsByType(@PathVariable ObservationType typeValue) {
+        return service.getObservationsByType(typeValue);
     }
 
     @RequestMapping(
@@ -44,12 +51,20 @@ public class ObservationController {
     }
 
     @RequestMapping(
-            consumes = "application/json",
-            method = RequestMethod.POST)
-    public Observation createMovie(@RequestBody Observation newObservation) throws ObservationException {
-        return service.createObservation(newObservation);
+            value = "/scripture/{scriptureValue}",
+            method = RequestMethod.GET)
+    public List<Observation> getObservationsByScripture(@PathVariable String scriptureValue) {
+        return service.getObservationsByScripture(scriptureValue);
     }
 
+    @RequestMapping(
+            value = "/type/{typeValue}/scripture/{scriptureValue}",
+            method = RequestMethod.GET)
+    public List<Observation> getObsByTypeAndScrip(@PathVariable ObservationType typeValue, @PathVariable String scriptureValue) {
+        return service.getObsByTypeAndScrip(typeValue, scriptureValue);
+    }
+
+    // UPDATE
     @RequestMapping(
             consumes = "application/json",
             method = RequestMethod.PUT)
@@ -57,6 +72,7 @@ public class ObservationController {
         return service.updateObservation(updateObservation);
     }
 
+    // DELETE
     @RequestMapping(
             value = "/id/{observationIdValue}",
             method = RequestMethod.DELETE)
@@ -65,6 +81,4 @@ public class ObservationController {
         return service.deleteObservationById(observationIdValue);
     }
 
-    //TODO: getObservationsByBook
-    //TODO: getObservationsByChapter
 }
