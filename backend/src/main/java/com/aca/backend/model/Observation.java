@@ -1,14 +1,14 @@
 package com.aca.backend.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Observation {
     private Integer id;
     private java.lang.String text;
     private ObservationType type;
     private String scriptureRef;
-    private LocalDate createDateTime;
-    private LocalDate updateDateTime;
+    private LocalDateTime createDateTime;
+    private LocalDateTime updateDateTime;
 
     public Integer getId() {
         return id;
@@ -38,16 +38,16 @@ public class Observation {
 
     public void setScriptureRef(String scriptureRef) { this.scriptureRef = scriptureRef; }
 
-    public LocalDate getCreateDateTime() {
+    public LocalDateTime getCreateDateTime() {
         return createDateTime;
     }
 
-    public void setCreateDateTime(LocalDate createDateTime) {
+    public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
     }
 
-    public LocalDate getUpdateDateTime() { return updateDateTime; }
+    public LocalDateTime getUpdateDateTime() { return updateDateTime; }
 
-    public void setUpdateDateTime(LocalDate updateDateTime) { this.updateDateTime = updateDateTime; }
+    public void setUpdateDateTime(LocalDateTime updateDateTime) { this.updateDateTime = updateDateTime; }
 
 }

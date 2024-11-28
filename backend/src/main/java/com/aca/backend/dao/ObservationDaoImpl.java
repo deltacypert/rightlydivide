@@ -4,7 +4,7 @@ import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationType;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,14 +123,14 @@ public class ObservationDaoImpl implements ObservationDao {
     }
 
     @Override
-    public List<Observation> getObservationsByDay(LocalDate dateCreated) {
+    public List<Observation> getObservationsByDay(LocalDateTime dateCreated) {
         List<Observation> myObservations = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement ps = null;
 
         Connection conn = MariaDbUtil.getConnection();
         try {
-            java.sql.Date date = java.sql.Date.valueOf(dateCreated);
+            java.sql.Date date = java.sql.Date.valueOf(dateCreated.toLocalDate());
             ps = conn.prepareStatement(selectObservationsByDay);
             ps.setDate(1,date);
             rs = ps.executeQuery();
@@ -189,8 +189,8 @@ public class ObservationDaoImpl implements ObservationDao {
             String typeString = result.getString("typeId");
             observation.setType(ObservationType.convertStringToObType(typeString));
 
-            observation.setCreateDateTime(result.getObject("createDateTime", LocalDate.class));
-            observation.setUpdateDateTime(result.getObject("updateDateTime", LocalDate.class));
+            observation.setCreateDateTime(result.getObject("createDateTime", LocalDateTime.class));
+            observation.setUpdateDateTime(result.getObject("updateDateTime", LocalDateTime.class));
 
             observations.add(observation);
         }

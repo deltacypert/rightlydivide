@@ -6,7 +6,7 @@ import com.aca.backend.model.ObservationType;
 import com.aca.backend.service.ObservationService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -46,7 +46,7 @@ public class ObservationController {
     @RequestMapping(
             value = "/day/{dateCreated}",
             method = RequestMethod.GET)
-    public List<Observation> getObservationsByDay(@PathVariable LocalDate dateCreated) {
+    public List<Observation> getObservationsByDay(@PathVariable LocalDateTime dateCreated) {
         return service.getObservationsByDay(dateCreated);
     }
 

@@ -5,7 +5,7 @@ import com.aca.backend.dao.ObservationDaoImpl;
 import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationType;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ObservationService {
@@ -28,7 +28,7 @@ public class ObservationService {
         return observationDao.getObservationsById(observationIdValue);
     }
 
-    public List<Observation> getObservationsByDay(LocalDate dateCreated) {
+    public List<Observation> getObservationsByDay(LocalDateTime dateCreated) {
         return observationDao.getObservationsByDay(dateCreated);
     }
 

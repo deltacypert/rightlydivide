@@ -3,7 +3,7 @@ package com.aca.backend.dao;
 import com.aca.backend.model.Observation;
 import com.aca.backend.model.ObservationType;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ObservationDao {
@@ -11,7 +11,7 @@ public interface ObservationDao {
     public abstract List<Observation> getObservations();
     public abstract List<Observation> getObservationsById(Integer observationId);
     public abstract List<Observation> getObservationsByType(ObservationType typeValue);
-    public abstract List<Observation> getObservationsByDay(LocalDate dateCreated);
+    public abstract List<Observation> getObservationsByDay(LocalDateTime dateCreated);
     public abstract List<Observation> getObservationsByScripture(String scriptureValue);
     public abstract List<Observation> getObsByTypeAndScrip(ObservationType typeValue, String scriptureValue);
     public abstract Observation updateObservation(Observation updateObservation);
