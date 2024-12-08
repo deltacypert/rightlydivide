@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Observation {
     private Integer id;
-    private java.lang.String text;
+    private String text;
     private ObservationType type;
     private String scriptureRef;
     private LocalDateTime createDateTime;

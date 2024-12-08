@@ -1,26 +1,77 @@
-<div class="jumbotron text-center">
-  <span class="display-4">Welcome To Rightly Divide</span>
-</div>
-<div class="row">
-  <div class="col-6">
-    <h4 class="text-center">What is it?</h4>
-    <p>
-      Rightly Divide is a user-friendly Bible Reading App that facilitiates
-      daily scripture study and personal refelection. Think of it as a Biblical
-      journal. All of your observations in one place.
-    </p>
+<style>
+  .parallax-effect {
+  background-image: url('./img/rd-banner.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: 500px; /* Adjust the height as needed */
+}
+
+/* Optional: Styling for images inside columns if you want them to blend better */
+.parallax-effect .img-fluid {
+  display: none; /* Hide the img tag, as we're using the background image for parallax */
+}
+</style>
+<header class="bg-dark py-5">
+  <div class="container px-5">
+    <div class="row gx-5 justify-content-center">
+      <div class="col-lg-6">
+        <div class="text-center my-5">
+          <h1 class="display-5 fw-bolder text-white mb-2">
+            Rightly Divide the Word of Truth
+          </h1>
+          <p class="lead text-white-50 mb-4">
+            Engage with Scripture like never before with an app that allows you to Create, Read, Update and Delete observations
+          </p>
+          <div class="justify-content-center">
+            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#!create"
+              >Get Started</a
+            >
+            <a class="btn btn-outline-light btn-lg px-4" href="#features"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-6">
-    <h4 class="text-center">What can you do?</h4>
-    <p>
-      Rightly Divide allows for you to log observations and revist them later,
-      making Bible study engaging and organized. Observations can be searched by
-      type, chapter and verse, or date created.
-    </p>
+</header>
+<section class="py-5 border-bottom" id="features">
+  <div class="container px-5 my-5">
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="./img/rd-icon1.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        <h4>What is it?</h1>
+        <p>
+          Rightly Divide is a user-friendly Bible Reading App that facilitiates
+          daily scripture study and personal refelection. Think of it as a
+          Biblical journal. All of your observations in one place.
+        </p>
+      </div>
+      <p></p>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="./img/rd-icon2.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        <h4>What can you do?</h1>
+        <p>
+          Rightly Divide allows for you to log observations and revist them later,
+          making Bible study engaging and organized. Observations can be searched
+          by type, chapter and verse, or date created.
+        </p>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
+</section>
+<div class="row parallax-effect">
   <div class="col-12">
-    <img class="img-fluid" src="./img/rd-banner.jpg" />
+    <img class="img-fluid" src="./img/rd-banner.jpg" alt="Banner Image" />
   </div>
 </div>
+<section class="py-5 bg-light text-center">
+  <div class="container px-5">
+    <h2 class="mb-4">Download Our Bible Plan</h2>
+    <p class="mb-4">Get the full Bible reading plan to help you with your daily studies and reflections.</p>
+    <a class="btn btn-primary btn-lg" href="./pdf/rightlydivide.pdf" download="Right_Divide.pdf">
+      Download Bible Plan
+    </a>
+  </div>
+</section>

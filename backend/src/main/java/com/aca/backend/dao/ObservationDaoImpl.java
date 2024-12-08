@@ -42,9 +42,10 @@ public class ObservationDaoImpl implements ObservationDao {
     // UPDATE
     private static String updateObservationsById =
             "UPDATE observations " +
-            "SET text = ?, " +
-                "typeId = ? " +
-            "WHERE id = 2 ";
+            "SET TEXT = ?, " +
+                "typeId = ?, " +
+                "scriptureRef = ? " +
+            "WHERE id = ? ";
     // DELETE
     private static String deleteObservationById =
             "DELETE FROM observations " +
@@ -59,6 +60,7 @@ public class ObservationDaoImpl implements ObservationDao {
             ps = conn.prepareStatement(insertObservation);
             ps.setString(1, newObservation.getText());
             ps.setString(2, newObservation.getType().toString());
+            ps.setString(3, newObservation.getScriptureRef());
             int rowCount = ps.executeUpdate();
             System.out.println("insert count: " + rowCount);
         } catch (SQLException e) {
@@ -209,7 +211,8 @@ public class ObservationDaoImpl implements ObservationDao {
                 ps = conn.prepareStatement(updateObservationsById);
                 ps.setString(1, updateObservation.getText());
                 ps.setString(2, updateObservation.getType().toString());
-                ps.setInt(3, updateObservation.getId());
+                ps.setString(3, updateObservation.getScriptureRef());
+                ps.setInt(4, updateObservation.getId());
                 int rowCount = ps.executeUpdate();
                 System.out.println("rows updated: " + rowCount);
             } catch (SQLException e) {

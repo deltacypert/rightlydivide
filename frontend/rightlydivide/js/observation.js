@@ -1,22 +1,31 @@
+/**
+ * Creates a new angular js module named 'movieapp' 
+ * we need at least one module to store all of our business logic
+ * wrapped in an IIFE- immediately invoked function expression
+ */
+
 (function(){
     var rdapp = angular.module('rdapp', ['ngRoute']);
 
     rdapp.config(function($routeProvider) {
         $routeProvider
         .when("/search", {
-          templateUrl: "search.html"
+            templateUrl: "search.html",
+            controller: "searchController"
         })
         .when("/create", {
-          templateUrl: "create.html"
+            templateUrl: "create.html",
+            controller: "createController"
         })
-        .when("/stack", {
-          templateUrl: "stack.html"
+        .when("/info", {
+            templateUrl: "info.html",
         })
-        .when("/resume", {
-          templateUrl: "resume.html"
+        .when("/update/:observationId", {
+            templateUrl: "update.html",
+            controller: "updateController"
         })
         .otherwise({
-            templateUrl: "main.html"
+            templateUrl : "main.html"
         });
       });
 })()

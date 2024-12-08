@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/observations", produces = "application/json")
+@CrossOrigin("http://127.0.0.1:5500")
 public class ObservationController {
 
     private ObservationService service = new ObservationService();
