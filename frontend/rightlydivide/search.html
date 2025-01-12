@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="row mb-4">
+  <div class="row mb-2">
     <div class="col-12 d-flex">
       <input
         type="text"
@@ -8,12 +8,22 @@
         maxlength="15"
         ng-model="searchValue"
       />
-      <button
-      class="btn btn-outline-secondary"
-      ng-click="sortByDate()"
-    >
-      Sort
-    </button>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-12 d-flex">
+      <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          {{selectedType || 'Filter By Type'}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" ng-click="selectType('')">All Types</a>
+          <a class="dropdown-item" ng-click="selectType('Literal')">Literal</a>
+          <a class="dropdown-item" ng-click="selectType('Moral')">Moral</a>
+          <a class="dropdown-item" ng-click="selectType('Spiritual')">Spiritual</a>
+        </div>
+      </div>
+      <button class="btn btn-outline-secondary ml-2" ng-click="sortByDate()">Sort By Date</button> 
     </div>
   </div>
   <div ng-show="!showSpinner">

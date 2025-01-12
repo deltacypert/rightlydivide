@@ -1,13 +1,24 @@
-<div class="row">
-  <div class="col-sm-7">
-    <div class="card bg-light">
+<style>
+  body {
+    background: url(img/rd-banner.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+</style>
+
+<div class="row justify-content-center pt-3">
+  <div class="col-sm-8">
+    <div class="card">
       <div class="card-header text-center">
         <h3>Update Observation</h3>
-        <h5 class="text-success text-center" ng-bind="updateStatus"></h5>
+        <h5 class="text-success" ng-bind="updateStatus"></h5>
       </div>
 
       <div class="card-body">
         <form name="updateForm">
+          <!-- Text Field -->
           <div class="form-group">
             <label for="text" class="font-weight-bold">Text:</label>
             <textarea
@@ -15,10 +26,9 @@
               required
               ng-minlength="2"
               name="text"
-              type="text"
               class="form-control"
-              id="text"
               rows="5"
+              id="text"
             ></textarea>
             <span
               ng-show="updateForm.text.$touched && updateForm.text.$invalid"
@@ -27,24 +37,24 @@
               Required and must be at least two characters.
             </span>
           </div>
+
+          <!-- Type Section -->
           <div class="form-group">
             <label for="type" class="font-weight-bold">Type:</label>
-            <br />
             <div ng-repeat="type in types" class="form-check form-check-inline">
-              <label class="radio-inline" for="{{type}}">
-                <input
-                  class="form-check-input"
-                  id="{{type}}"
-                  ng-model="observation.type"
-                  value="{{type}}"
-                  type="radio"
-                  name="type"
-                />
-                {{type}}
-              </label>
+              <input
+                class="form-check-input"
+                id="{{type}}"
+                ng-model="observation.type"
+                value="{{type}}"
+                type="radio"
+                name="type"
+              />
+              <label class="form-check-label" for="{{type}}"> {{type}} </label>
             </div>
           </div>
 
+          <!-- Scripture Reference Field -->
           <div class="form-group">
             <label for="scriptureRef" class="font-weight-bold"
               >Scripture:</label
@@ -52,16 +62,17 @@
             <input
               ng-model="observation.scriptureRef"
               required
-              ng-minlength="2"
               type="text"
               class="form-control"
               id="scriptureRef"
               name="scriptureRef"
             />
             <span class="text-danger" ng-if="!updateForm.scriptureRef.$valid">
-              required
+              Required
             </span>
           </div>
+
+          <!-- Observation Info -->
           <div>
             <span class="font-weight-bold">Observation ID:</span>
             <span ng-bind="observation.id" id="id"></span>
@@ -82,10 +93,12 @@
           </div>
         </form>
       </div>
+
+      <!-- Footer Buttons -->
       <div class="card-footer text-center">
         <button
           type="button"
-          class="btn btn-success"
+          class="btn btn-success m-1"
           ng-disabled="updateForm.$invalid || disableUpdate"
           ng-click="updateObservation()"
         >
@@ -93,29 +106,29 @@
         </button>
         <button
           type="button"
-          class="btn btn-danger"
+          class="btn btn-danger m-1"
           ng-disabled="disableUpdate"
           ng-click="deleteObservation()"
         >
           Delete
         </button>
-        <button type="button" class="btn btn-info" ng-click="goToSearchView()">
-          Cancel
-        </button>
-        <p></p>
         <button
           type="button"
-          class="btn btn-dark btn-block"
+          class="btn btn-info m-1"
           ng-click="goToSearchView()"
         >
-          View Observations
+          Cancel
         </button>
+        <div class="mt-2">
+          <button
+            type="button"
+            class="btn btn-dark btn-block"
+            ng-click="goToSearchView()"
+          >
+            View Observations
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-5">
-    <div class="pt-5">
-      <img class="img-fluid rounded-circle" src="./img/rd-banner.jpg" />
     </div>
   </div>
 </div>

@@ -7,18 +7,24 @@
   height: 500px; /* Adjust the height as needed */
 }
 
-/* Optional: Styling for images inside columns if you want them to blend better */
 .parallax-effect .img-fluid {
   display: none; /* Hide the img tag, as we're using the background image for parallax */
 }
+
+.hero-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
 </style>
 <header class="bg-dark py-5">
   <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
+    <div class="row gx-5 justify-content-center hero-section">
       <div class="col-lg-6">
         <div class="text-center my-5">
           <h1 class="display-5 fw-bolder text-white mb-2">
-            Rightly Divide the Word of Truth
+            Rightly Divide the Word
           </h1>
           <p class="lead text-white-50 mb-4">
             Engage with Scripture like never before with an app that allows you to Create, Read, Update and Delete observations
@@ -40,7 +46,9 @@
   <div class="container px-5 my-5">
     <div class="row">
       <div class="col-lg-6 mb-5 mb-lg-0">
-        <img src="./img/rd-icon1.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        <div class="animate__animated animate__fadeInDown">
+          <img src="./img/rd-icon1.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        </div>
         <h4>What is it?</h1>
         <p>
           Rightly Divide is a user-friendly Bible Reading App that facilitiates
@@ -50,10 +58,12 @@
       </div>
       <p></p>
       <div class="col-lg-6 mb-5 mb-lg-0">
-        <img src="./img/rd-icon2.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        <div class="animate__animated animate__fadeInDown">
+          <img src="./img/rd-icon2.jpg" class="img-fluid rounded-circle mb-5 d-block mx-auto" alt="Icon" style="height: 200px">
+        </div>
         <h4>What can you do?</h1>
         <p>
-          Rightly Divide allows for you to log observations and revist them later,
+          Rightly Divide allows for you to log observations on your Bible reading and revist it later,
           making Bible study engaging and organized. Observations can be searched
           by type, chapter and verse, or date created.
         </p>
@@ -69,7 +79,7 @@
 <section class="py-5 bg-light text-center">
   <div class="container px-5">
     <h2 class="mb-4">Download Our Bible Plan</h2>
-    <p class="mb-4">Get the full Bible reading plan to help you with your daily studies and reflections.</p>
+    <p class="mb-4">Get our full Bible Reading Plan to help you with your daily studies and reflections.</p>
     <a class="btn btn-primary btn-lg" href="./pdf/rightlydivide.pdf" download="Right_Divide.pdf">
       Download Bible Plan
     </a>
