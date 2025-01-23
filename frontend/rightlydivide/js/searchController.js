@@ -62,5 +62,27 @@
             }
           };
 
+          $scope.fetchObservationsByDate = function() {
+            if ($scope.selectedDate) {
+                $scope.showSpinner = true;
+                
+                // If selectedDate is a Date object, format it to yyyy-mm-dd
+                const selectedDateObj = new Date($scope.selectedDate);
+                
+                // Manually format the date to yyyy-mm-dd
+                const formattedDate = selectedDateObj.toISOString().split('T')[0];  // Get yyyy-mm-dd from ISO format
+                                
+                $http.get("http://localhost:8080/api/observations/day/" + formattedDate)
+                    .then(function(response) {
+                        $scope.observations = response.data;
+                        $scope.showSpinner = false;
+                    })
+                    .catch(function(response) {
+                        console.log("Error HTTP GET observations by date: " + response.status);
+                        $scope.showSpinner = false;
+                    });
+            }
+        };
+
     });
 })()
